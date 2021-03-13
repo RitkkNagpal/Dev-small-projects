@@ -3,5 +3,5 @@ module.exports = {
     "Audio":  [".mp3"] ,
     "Documents":[".pdf" , ".txt" , ".doc" ] ,
     "Compressed":[".zip"] ,
-    "Videos":[".mkv"]
+    "Videos":[".mkv",".mp4"]
 }
