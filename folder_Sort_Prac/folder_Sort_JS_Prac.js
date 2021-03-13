@@ -4,7 +4,7 @@ let extensions=require("./util");
 let extFolderPath;
 let folderPath="./DownloadsP";
 
-function checkFolder(extension)
+function checkFolder(extension,folderPath)
 {
     //checks if a folder already exists for a paticular extension name
     for(let key in extensions)
@@ -22,7 +22,7 @@ function checkFolder(extension)
 
 }
 
-function moveFile(fileName)
+function moveFile(fileName,folderPath)
 {
     //copy file
     let sourceFilePath=`${folderPath}/${fileName}`; //DownloadsP/abc.jpg
@@ -44,23 +44,33 @@ function sortFolder(folderPath)
 {
     let contents=fs.readdirSync(folderPath);
     
-    for(let i=0;i<contents.length;i++)
-    {
-        let extensionName=path.extname(contents[i]);
 
-        console.log(extensionName);
-        let extFolderExist=checkFolder(extensionName);
+        for(let i=0;i<contents.length;i++)
+        {
+            let isDirectory=fs.lstatSync(`${folderPath}/${contents[i]}`).isDirectory();
+            if(isDirectory)
+            {
+                console.log("It is a folder");
+                sortFolder(`${folderPath}/${contents[i]}`);
+            }
+            else
+            {
+                let extensionName=path.extname(contents[i]);
 
-        if(extFolderExist)
-        {
-            moveFile(contents[i]);
-        }
-        else
-        {
-            createFolder();
-            moveFile(contents[i]);
-        }
-    }
+                console.log(extensionName);
+                let extFolderExist=checkFolder(extensionName,folderPath);
+
+                if(extFolderExist)
+                {
+                    moveFile(contents[i],folderPath);
+                }
+                else
+                {
+                    createFolder();
+                    moveFile(contents[i],folderPath);
+                }
+            }
+        }   
 }
 
 sortFolder(folderPath);
