@@ -31,7 +31,7 @@ function parseData(html)
                 highestWicketstakenSoFar=wicketsTaken;
                 nameOfHighestWicketTaker=ch(allTds['0']).text();
                 economy=ch(allTds['5']).text();
-                let temp=i==0?1:0;
+                let temp=i==0?1:0; //because at i=0 the team name is delhi capitals in the page whereas mumbai balls first
                 teamName=ch(teamNames[temp]).text().split("INNINGS")[0].trim();
             }
         }
