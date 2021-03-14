@@ -1,7 +1,7 @@
 const cheerio=require("cheerio");
 const request=require("request");
 let highestWicketTaker={};
-request("https://www.espncricinfo.com/series/ipl-2020-21-1210595/delhi-capitals-vs-mumbai-indians-final-1237181/full-scorecard",cb);
+request("https://www.espncricinfo.com/series/ipl-2020-21-1210595/delhi-capitals-vs-mumbai-indians-final-1237181/full-scorecard",cb); //any url from espncric info site
 
 function cb(error,response,body)
 {
