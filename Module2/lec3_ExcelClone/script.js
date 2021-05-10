@@ -25,6 +25,24 @@ for(let i=0;i<allCells.length;i++)
         let address = String.fromCharCode(65+colId)+(rowId+1)+"";
         addressInput.value=address;
         formulaInput.value=cellObject.formula;
+
+        if(cellObject.fontStyle.bold){
+            // agar font already bold hai
+            document.querySelector(".bold").classList.add("active-font-style");
+        }
+        else{
+            //agar nai bold to active filter hata lo( incase vo active hota to )
+            document.querySelector(".bold").classList.remove("active-font-style");
+        }
+
+        cellObject.fontStyle.italic 
+            ? document.querySelector(".italic").classList.add("active-font-style")
+            : document.querySelector(".italic").classList.remove("active-font-style");
+
+        cellObject.fontStyle.underline
+            ? document.querySelector(".underline").classList.add("active-font-style")
+            : document.querySelector(".underline").classList.remove("active-font-style");
+
     });
 
     allCells[i].addEventListener("blur",function(e){
@@ -54,7 +72,6 @@ for(let i=0;i<allCells.length;i++)
         }
         cellObject.visited=true;
         visitedCells.push({rowId:rowId,colId:colId});   
-        console.log(sheetsDB);
     });
 
     allCells[i].addEventListener("keydown",function(e){

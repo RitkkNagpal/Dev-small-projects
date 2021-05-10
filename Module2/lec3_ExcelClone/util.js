@@ -1,16 +1,8 @@
-function getRowIdColIdOfElement(element){
-    let rowId=element.getAttribute("rowId");
-    let colId=element.getAttribute("colId");
-    return{
-        rowId,colId
-    };
-}
-
 function solveFormula(formula,selfCellObject) //selfcellobject is the last selected cell
 {
     //( A1 + A2 )
     // formula is always space separated
-
+    
     //this loop will replace value of A1 and A2 by their respective cell values
     let formulaComponents=formula.split(" "); //split on the basis of spaces
     
@@ -21,7 +13,7 @@ function solveFormula(formula,selfCellObject) //selfcellobject is the last selec
         let singleComponent=formulaComponents[i];
         if(singleComponent[0] >= "A" && singleComponent[0] <= "Z"){ //if first letter of each component falls in the range
             // valid component A1->Z100
-
+            
             let{rowId,colId}=getRowIdColIdFromAddress(singleComponent);
             let cellObject=db[rowId][colId];
             let value=cellObject.value;
@@ -30,12 +22,20 @@ function solveFormula(formula,selfCellObject) //selfcellobject is the last selec
                 cellObject.children.push(selfCellObject.name);
                 cellObject.parents.push(cellObject.name);
             }
-
+            
             formula=formula.replace(singleComponent,value);
         }
     }
     let computedValue=eval(formula);
     return computedValue;
+}
+
+function getRowIdColIdOfElement(element){
+    let rowId=element.getAttribute("rowId");
+    let colId=element.getAttribute("colId");
+    return{
+        rowId,colId
+    };
 }
 
 function getRowIdColIdFromAddress(address)
